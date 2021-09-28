@@ -1,0 +1,20 @@
+# Used IRB Mode
+
+
+require 'watir'
+
+browser = Watir::Browser.new :firefox
+
+browser.goto 'http://google.nl/'
+browser.text_field(:name => 'q').set('M2mobi amsterdam')
+browser.input(:name => 'btnK', :index => 1).click
+google_link = browser.h3(text: 'M2mobi | Digital Agency | Mobile App Development').wait_until_present
+google_link.click
+
+browser.link(href: /contact/).click
+
+browser.text.include?("+31 20 354 0259").should == true
+browser.text.downcase.include?("info@m2mobi.com").should == true
+
+
+browser.close
